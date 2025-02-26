@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Mortgage repayment calculator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" <!-- Feel free to remove these styles or customise in your own stylesheet 👍
+    -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="calculator">
+      <header class="calculator__header">
+        <h1 class="calculator__title">Mortgage Calculator</h1>
+        <button class="calculator__clear-button">Clear All</button>
+      </header>
+      <form class="calculator__form">
+        <label for="mortage-amount">Mortgage Amount</label>
+
+
+        <div class="calculator__input">
+          <span class="calculator__unit">£</span>
+          <input type="number" name="mortage-amount" id="mortage-amount" required>
+        </div>
+
+        <label for="mortage-term">Mortgage Term</label>
+        <div class="calculator__input">
+          <input type="number" name="mortage-term" id="mortage-term required" required>
+          <span class="calculator__unit">years</span>
+        </div>
+
+        <label for="interest-rate">Interest Rate</label>
+        <div class="calculator__input">
+          <input type="number" name="interest-rate" id="interest-rate" required>
+          <span class="calculator__unit">%</span>
+        </div>
+
+
+        <label>Mortgage Type</label>
+        <div class="calculator__input calculator__input--radio">
+          <input type="radio" name="mortage-type" id="repayment" value="repayment">
+          <label for="repayment">Repayment</label>
+        </div>
+        <div class="calculator__input calculator__input--radio">
+          <input type="radio" name="mortage-type" id="interest-only" value="interest-only">
+          <label for="interest-only">Interest Only</label>
+        </div>
+
+        <input type="submit" value="Calculate Repayments" class="calculator__button">
+
+      </form>
+    </div>
+    <div class="results">
+      <img src="./assets/images/illustration-empty.svg" class="results__image" alt="calculator-image">
+      <div class="results__text">
+        <h2 class="results__tittle">Results shown here</h2>
+        <p class="results__info">Complete the form and click “calculate repayments” to see what
+          your monthly repayments would be.</p>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Completed results start -->
+
+  <!-- Your results
+
+  Your results are shown below based on the information you provided.
+  To adjust the results, edit the form and click “calculate repayments” again.
+
+  Your monthly repayments
+
+  Total you'll repay over the term -->
+
+  <!-- Completed results end -->
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+
+</html>

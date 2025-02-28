@@ -36,38 +36,47 @@
         <button class="calculator__clear-button">Clear All</button>
       </header>
       <form class="calculator__form">
-        <label for="mortage-amount">Mortgage Amount</label>
 
 
-        <div class="calculator__input">
-          <span class="calculator__unit">£</span>
-          <input type="number" name="mortage-amount" id="mortage-amount" required>
+        <div class="calculator__grid-item">
+          <label for="mortage-amount">Mortgage Amount</label>
+          <div class="calculator__input">
+            <span class="calculator__unit">£</span>
+            <input type="number" name="mortage-amount" id="mortage-amount" required>
+          </div>
         </div>
 
-        <label for="mortage-term">Mortgage Term</label>
-        <div class="calculator__input">
-          <input type="number" name="mortage-term" id="mortage-term required" required>
-          <span class="calculator__unit">years</span>
+        <div class="calculator__grid-item calculator__grid-item--small">
+          <label for="mortage-term">Mortgage Term</label>
+          <div class="calculator__input">
+            <input type="number" name="mortage-term" id="mortage-term required" required>
+            <span class="calculator__unit">years</span>
+          </div>
         </div>
 
-        <label for="interest-rate">Interest Rate</label>
-        <div class="calculator__input">
-          <input type="number" name="interest-rate" id="interest-rate" required>
-          <span class="calculator__unit">%</span>
+        <div class="calculator__grid-item calculator__grid-item--small">
+          <label for="interest-rate">Interest Rate</label>
+          <div class="calculator__input">
+            <input type="number" name="interest-rate" id="interest-rate" required>
+            <span class="calculator__unit">%</span>
+          </div>
         </div>
 
-
-        <label>Mortgage Type</label>
-        <div class="calculator__input calculator__input--radio">
-          <input type="radio" name="mortage-type" id="repayment" value="repayment">
-          <label for="repayment">Repayment</label>
+        <div class="calculator__grid-item">
+          <label>Mortgage Type</label>
+          <div class="calculator__input calculator__input--radio">
+            <input type="radio" name="mortage-type" id="repayment" value="repayment">
+            <label for="repayment">Repayment</label>
+          </div>
+          <div class="calculator__input calculator__input--radio">
+            <input type="radio" name="mortage-type" id="interest-only" value="interest-only">
+            <label for="interest-only">Interest Only</label>
+          </div>
         </div>
-        <div class="calculator__input calculator__input--radio">
-          <input type="radio" name="mortage-type" id="interest-only" value="interest-only">
-          <label for="interest-only">Interest Only</label>
+        <div class="calculator__grid-item">
+          <input type="submit" value="Calculate Repayments" class="calculator__button">
         </div>
-
-        <input type="submit" value="Calculate Repayments" class="calculator__button">
+        
 
       </form>
     </div>

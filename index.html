@@ -37,33 +37,32 @@
       </header>
       <form class="calculator__form">
 
-
         <div class="calculator__grid-item">
-          <label for="mortage-amount">Mortgage Amount</label>
-          <div class="calculator__input">
+          <label for="mortage-amount" class="calculator__label">Mortgage Amount</label>
+          <div class="calculator__input" id="mortage-amount-input">
             <span class="calculator__unit">£</span>
-            <input type="number" name="mortage-amount" id="mortage-amount" required>
+            <input type="number" name="mortage-amount" id="mortage-amount" required onFocus="addFocus('mortage-amount-input')" onBlur="removefocus('mortage-amount-input')">
           </div>
         </div>
 
         <div class="calculator__grid-item calculator__grid-item--small">
-          <label for="mortage-term">Mortgage Term</label>
-          <div class="calculator__input">
-            <input type="number" name="mortage-term" id="mortage-term required" required>
+          <label for="mortage-term" class="calculator__label">Mortgage Term</label>
+          <div class="calculator__input" id="mortage-term-input">
+            <input type="number" name="mortage-term" id="mortage-term required" required onFocus="addFocus('mortage-term-input')" onBlur="removefocus('mortage-term-input')">
             <span class="calculator__unit">years</span>
           </div>
         </div>
 
         <div class="calculator__grid-item calculator__grid-item--small">
-          <label for="interest-rate">Interest Rate</label>
-          <div class="calculator__input">
-            <input type="number" name="interest-rate" id="interest-rate" required>
+          <label for="interest-rate" class="calculator__label">Interest Rate</label>
+          <div class="calculator__input" id="interest-rate-input">
+            <input type="number" name="interest-rate" id="interest-rate" required onFocus="addFocus('interest-rate-input')" onBlur="removefocus('interest-rate-input')">
             <span class="calculator__unit">%</span>
           </div>
         </div>
 
-        <div class="calculator__grid-item">
-          <label>Mortgage Type</label>
+        <fieldset class="calculator__grid-item calculator__fieldset">
+          <legend class="calculator__label">Mortgage Type</legend>
           <div class="calculator__input calculator__input--radio">
             <input type="radio" name="mortage-type" id="repayment" value="repayment">
             <label for="repayment">Repayment</label>
@@ -72,7 +71,8 @@
             <input type="radio" name="mortage-type" id="interest-only" value="interest-only">
             <label for="interest-only">Interest Only</label>
           </div>
-        </div>
+
+        </fieldset>
         <div class="calculator__grid-item">
           <input type="submit" value="Calculate Repayments" class="calculator__button">
         </div>
@@ -114,5 +114,24 @@
     Coded by <a href="#">Your Name Here</a>.
   </div>
 </body>
+
+<script>
+  function addFocus(filedName){
+    let input = document.getElementById(filedName);
+    let calculatorUnit= input.querySelector('.calculator__unit');
+
+    input.classList.add("calculator__input--focused");
+    calculatorUnit.classList.add("calculator__unit--focused");
+
+  }
+
+  function removefocus(filedName){
+    let input = document.getElementById(filedName);
+    let calculatorUnit= input.querySelector('.calculator__unit');
+
+    input.classList.remove("calculator__input--focused");
+    calculatorUnit.classList.remove("calculator__unit--focused");
+  }
+</script>
 
 </html>

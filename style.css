@@ -1,5 +1,6 @@
 :root {
     --lime: hsl(61, 70%, 52%);
+    --lime-opacity-30: hsl(60, 68%, 85%);
     --red: hsl(4, 69%, 50%);
     --white: hsl(0, 0%, 100%);
     --slate-100: hsl(202, 86%, 94%);
@@ -82,7 +83,7 @@ input[type=number]:focus {
     height: 3rem;
 }
 
-.calculator__input:hover {
+.calculator__input:hover:not(.calculator__input--focused) {
     border: var(--slate-700) solid 0.1rem;
 }
 
@@ -102,13 +103,15 @@ input[type="radio"] {
     height: 1.2rem;
     border: 0.1rem solid var(--slate-900);
     border-radius: 50%;
+    transition: 0.2s all ease;
+
 }
 
 input[type="radio"]:checked{
-
     border: none;
     background-color: var(--lime);
-    border: 1rem solid;
+    border: 0.3rem solid var(--lime-opacity-30);
+    outline: 0.1rem solid var(--lime);
 
 }
 
@@ -122,6 +125,11 @@ input[type="radio"]:checked{
 }
 
 .calculator__input--radio:hover {
+    border: var(--lime) solid 0.1rem;
+}
+
+.calculator__input--radio:has(input[type="radio"]:checked){
+    background-color: var(--lime-opacity-30);
     border: var(--lime) solid 0.1rem;
 }
 
@@ -151,6 +159,10 @@ input[type="radio"]:checked{
     border-radius: 2rem;
     padding: 1rem;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .results {

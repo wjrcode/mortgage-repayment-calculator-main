@@ -35,20 +35,22 @@
         <h1 class="calculator__title">Mortgage Calculator</h1>
         <button class="calculator__clear-button">Clear All</button>
       </header>
-      <form class="calculator__form">
+      <form class="calculator__form" id="form" name="form" novalidate onsubmit="calculate()">
 
         <div class="calculator__grid-item">
           <label for="mortage-amount" class="calculator__label">Mortgage Amount</label>
           <div class="calculator__input" id="mortage-amount-input">
             <span class="calculator__unit">£</span>
-            <input type="number" name="mortage-amount" id="mortage-amount" required onFocus="addFocus('mortage-amount-input')" onBlur="removefocus('mortage-amount-input')">
+            <input type="number" name="mortage-amount" id="mortage-amount" required
+              onFocus="addFocus('mortage-amount-input')" onBlur="removefocus('mortage-amount-input')">
           </div>
         </div>
 
         <div class="calculator__grid-item calculator__grid-item--small">
           <label for="mortage-term" class="calculator__label">Mortgage Term</label>
           <div class="calculator__input" id="mortage-term-input">
-            <input type="number" name="mortage-term" id="mortage-term required" required onFocus="addFocus('mortage-term-input')" onBlur="removefocus('mortage-term-input')">
+            <input type="number" name="mortage-term" id="mortage-term" required onFocus="addFocus('mortage-term-input')"
+              onBlur="removefocus('mortage-term-input')">
             <span class="calculator__unit">years</span>
           </div>
         </div>
@@ -56,7 +58,8 @@
         <div class="calculator__grid-item calculator__grid-item--small">
           <label for="interest-rate" class="calculator__label">Interest Rate</label>
           <div class="calculator__input" id="interest-rate-input">
-            <input type="number" name="interest-rate" id="interest-rate" required onFocus="addFocus('interest-rate-input')" onBlur="removefocus('interest-rate-input')">
+            <input type="number" name="interest-rate" id="interest-rate" required
+              onFocus="addFocus('interest-rate-input')" onBlur="removefocus('interest-rate-input')">
             <span class="calculator__unit">%</span>
           </div>
         </div>
@@ -73,10 +76,15 @@
           </div>
 
         </fieldset>
+
+
         <div class="calculator__grid-item">
-          <input type="submit" value="Calculate Repayments" class="calculator__button">
+          <button type="submit" class="calculator__button">
+            <img src="./assets/images/icon-calculator.svg" alt="Submit">
+            Calculate Repayments
+          </button>
         </div>
-        
+
 
       </form>
     </div>
@@ -116,21 +124,59 @@
 </body>
 
 <script>
-  function addFocus(filedName){
+  function addFocus(filedName) {
     let input = document.getElementById(filedName);
-    let calculatorUnit= input.querySelector('.calculator__unit');
+    let calculatorUnit = input.querySelector('.calculator__unit');
 
     input.classList.add("calculator__input--focused");
     calculatorUnit.classList.add("calculator__unit--focused");
 
   }
 
-  function removefocus(filedName){
+  function removefocus(filedName) {
     let input = document.getElementById(filedName);
-    let calculatorUnit= input.querySelector('.calculator__unit');
+    let calculatorUnit = input.querySelector('.calculator__unit');
 
     input.classList.remove("calculator__input--focused");
     calculatorUnit.classList.remove("calculator__unit--focused");
+  }
+
+  function calculate() {
+    const mortageAmount = document.getElementById('mortage-amount');
+    const mortageTerm = document.getElementById('mortage-term');
+    const interestRate = document.getElementById('interest-rate');
+    const mortageType = document.querySelector('input[name="mortage-type"]:checked').value;
+
+    console.log(mortageAmount);
+    console.log(mortageTerm);
+
+    console.log(interestRate);
+
+    console.log(mortageType);
+
+    let p = mortageAmount.value;
+    let r = interestRate.value / 100;
+    let n = 12;
+    let t = mortageTerm.value * 12;
+
+    if (mortageType == 'interest-only') {
+      console.log(p * (r / n));
+      console.log((p * (r / n))*t);
+    } else {
+
+
+      let fistStep = p * (r / n);
+      let secondStep = (1 - (1 + (r / n)) ** -t);
+      console.log(fistStep / secondStep);
+      console.log((fistStep / secondStep)*t);
+
+    }
+
+    //mortageAmount.value= 666
+    event.preventDefault()
+
+
+
   }
 </script>
 

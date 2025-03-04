@@ -74,48 +74,47 @@
             <input type="radio" name="mortage-type" id="interest-only" value="interest-only">
             <label for="interest-only">Interest Only</label>
           </div>
-
         </fieldset>
-
-
         <div class="calculator__grid-item">
           <button type="submit" class="calculator__button">
             <img src="./assets/images/icon-calculator.svg" alt="Submit">
             Calculate Repayments
           </button>
         </div>
-
-
       </form>
     </div>
     <div class="results">
-      <img src="./assets/images/illustration-empty.svg" class="results__image" alt="calculator-image">
-      <div class="results__text">
-        <h2 class="results__tittle">Results shown here</h2>
-        <p class="results__info">Complete the form and click “calculate repayments” to see what
-          your monthly repayments would be.</p>
-
+      <div class="results__empty" id="results__empty">
+        <img src="./assets/images/illustration-empty.svg" class="results__image" alt="calculator-image">
+        <div class="results__text">
+          <h2 class="results__tittle">Results shown here</h2>
+          <p class="results__info">Complete the form and click “calculate repayments” to see what
+            your monthly repayments would be.</p>
+        </div>
+      </div>
+      <div class="results__filled results__filled--hidden" id="results__filled">
+        <div class="results__text">
+          <h2 class="results__tittle">Your results</h2>
+          <p class="results__info">Your results are shown below based on the information you provided.
+            To adjust the results, edit the form and click “calculate repayments” again.</p>
+        </div>
+        <div class="results__card-border">
+          <div class="results__card-content">
+            <div>
+              <p class="results__tittle-number">Your monthly repayments</p>
+              <p class="results__number results__number--big" id="monthly-repayment">£1,797.74</p>
+            </div>
+            <hr class="results__divider">
+            <div>
+              <p class="results__tittle-number">Total you'll repay over the term</p>
+              <p class="results__number" id="total-repay">£539,322.94</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-  <!-- Completed results start -->
-
-  <!-- Your results
-
-  Your results are shown below based on the information you provided.
-  To adjust the results, edit the form and click “calculate repayments” again.
-
-  Your monthly repayments
-
-  Total you'll repay over the term -->
-
-  <!-- Completed results end -->
+  </div>
 
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
@@ -147,32 +146,35 @@
     const interestRate = document.getElementById('interest-rate');
     const mortageType = document.querySelector('input[name="mortage-type"]:checked').value;
 
-    console.log(mortageAmount);
-    console.log(mortageTerm);
-
-    console.log(interestRate);
-
-    console.log(mortageType);
-
     let p = mortageAmount.value;
     let r = interestRate.value / 100;
     let n = 12;
     let t = mortageTerm.value * 12;
 
+    let result = 0;
+    let totalResult = 0
+
     if (mortageType == 'interest-only') {
-      console.log(p * (r / n));
-      console.log((p * (r / n))*t);
+      result = (p * (r / n));
+      totalResult = result * t;
     } else {
 
 
       let fistStep = p * (r / n);
       let secondStep = (1 - (1 + (r / n)) ** -t);
-      console.log(fistStep / secondStep);
-      console.log((fistStep / secondStep)*t);
+      result = (fistStep / secondStep);
+      totalResult = result * t;
 
     }
 
-    //mortageAmount.value= 666
+    document.getElementById("results__empty").classList.add('results__empty--hidden');
+    document.getElementById("results__filled").classList.remove('results__filled--hidden')
+
+
+
+    document.getElementById("monthly-repayment").innerHTML = `£${result}`;
+    document.getElementById("total-repay").innerHTML = `£${totalResult}`;
+
     event.preventDefault()
 
 

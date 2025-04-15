@@ -91,6 +91,9 @@ input[type=number]:focus {
     border: var(--lime) solid 0.1rem;
 }
 
+.calculator__input--error {
+    border: var(--red) solid 0.1rem;
+}
 
 .calculator__fieldset {
     padding: 0;
@@ -146,6 +149,11 @@ input[type="radio"]:checked {
 .calculator__unit--focused {
     background-color: var(--lime);
     color: var(--slate-900);
+}
+
+.calculator__unit--error{
+    background-color: var(--red);
+    color: var(--white)
 }
 
 .calculator__button {
@@ -231,6 +239,15 @@ input[type="radio"]:checked {
     height: 1px;
     background-color: var(--slate-700);
     margin: 0;
+}
+
+.error{
+    color: var(--red);
+    display: none;
+}
+
+.error--visible{
+    display: block;
 }
 
 @media (min-width: 1300px) {

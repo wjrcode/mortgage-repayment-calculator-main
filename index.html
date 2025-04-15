@@ -44,6 +44,7 @@
             <input type="number" name="mortage-amount" id="mortage-amount" required
               onFocus="addFocus('mortage-amount-input')" onBlur="removefocus('mortage-amount-input')">
           </div>
+          <span id="mortage-amount-error" class="error">This field is required</span>
         </div>
 
         <div class="calculator__grid-item calculator__grid-item--small">
@@ -53,6 +54,7 @@
               onBlur="removefocus('mortage-term-input')">
             <span class="calculator__unit">years</span>
           </div>
+          <span id="mortage-amount-error" class="error">This field is required</span>
         </div>
 
         <div class="calculator__grid-item calculator__grid-item--small">
@@ -62,6 +64,7 @@
               onFocus="addFocus('interest-rate-input')" onBlur="removefocus('interest-rate-input')">
             <span class="calculator__unit">%</span>
           </div>
+          
         </div>
 
         <fieldset class="calculator__grid-item calculator__fieldset">
@@ -140,11 +143,51 @@
     calculatorUnit.classList.remove("calculator__unit--focused");
   }
 
+  function addError(fieldName){
+    let input = document.getElementById(fieldName + '-input');
+    let calculatorUnit = input.querySelector('.calculator__unit');
+    let message = document.getElementById(fieldName + '-error');
+
+    input.classList.add("calculator__input--error");
+    calculatorUnit.classList.add("calculator__unit--error");
+    message.classList.add("error--visible");
+  }
+
+  function removeError(fieldName){
+    let input = document.getElementById(fieldName + '-input');
+    let calculatorUnit = input.querySelector('.calculator__unit');
+    let message = document.getElementById(fieldName + '-error');
+
+    input.classList.remove("calculator__input--error");
+    calculatorUnit.classList.remove("calculator__unit--error");
+    message.classList.remove("error--visible");
+  }
+
   function calculate() {
+    event.preventDefault();
+
     const mortageAmount = document.getElementById('mortage-amount');
     const mortageTerm = document.getElementById('mortage-term');
     const interestRate = document.getElementById('interest-rate');
-    const mortageType = document.querySelector('input[name="mortage-type"]:checked').value;
+    const mortageType = document.querySelector('input[name="mortage-type"]:checked');
+
+    if(!mortageAmount.value || mortageAmount.value == 0){
+      addError('mortage-amount');
+      return false;
+    }
+    else removeError('mortage-amount');
+
+    if(!mortageAmount.value || mortageAmount.value == 0){
+      addError('mortage-term');
+      return false;
+    }
+    else removeError('mortage-term');
+
+    if(!mortageAmount.value || mortageAmount.value == 0){
+      addError('interest-rate');
+      return false;
+    }
+    else removeError('interest-rate');
 
     let p = mortageAmount.value;
     let r = interestRate.value / 100;
@@ -154,7 +197,7 @@
     let result = 0;
     let totalResult = 0
 
-    if (mortageType == 'interest-only') {
+    if (mortageType.value == 'interest-only') {
       result = (p * (r / n));
       totalResult = result * t;
     } else {
@@ -170,15 +213,8 @@
     document.getElementById("results__empty").classList.add('results__empty--hidden');
     document.getElementById("results__filled").classList.remove('results__filled--hidden')
 
-
-
     document.getElementById("monthly-repayment").innerHTML = `£${result}`;
     document.getElementById("total-repay").innerHTML = `£${totalResult}`;
-
-    event.preventDefault()
-
-
-
   }
 </script>
 

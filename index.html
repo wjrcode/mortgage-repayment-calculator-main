@@ -42,7 +42,7 @@
           <div class="calculator__input" id="mortage-amount-input">
             <span class="calculator__unit">£</span>
             <input type="number" name="mortage-amount" id="mortage-amount" required
-              onFocus="addFocus('mortage-amount-input')" onBlur="removefocus('mortage-amount-input')">
+              onFocus="addFocus('mortage-amount-input')" onBlur="removefocus('mortage-amount-input')" inputmode="decimal">
           </div>
           <span id="mortage-amount-error" class="error">This field is required</span>
         </div>
@@ -54,7 +54,7 @@
               onBlur="removefocus('mortage-term-input')">
             <span class="calculator__unit">years</span>
           </div>
-          <span id="mortage-amount-error" class="error">This field is required</span>
+          <span id="mortage-term-error" class="error">This field is required</span>
         </div>
 
         <div class="calculator__grid-item calculator__grid-item--small">
@@ -64,7 +64,7 @@
               onFocus="addFocus('interest-rate-input')" onBlur="removefocus('interest-rate-input')">
             <span class="calculator__unit">%</span>
           </div>
-          
+          <span id="interest-rate-error" class="error">This field is required</span>
         </div>
 
         <fieldset class="calculator__grid-item calculator__fieldset">
@@ -77,6 +77,7 @@
             <input type="radio" name="mortage-type" id="interest-only" value="interest-only">
             <label for="interest-only">Interest Only</label>
           </div>
+          <span id="mortage-type-error" class="error">This field is required</span>
         </fieldset>
         <div class="calculator__grid-item">
           <button type="submit" class="calculator__button">
@@ -143,23 +144,31 @@
     calculatorUnit.classList.remove("calculator__unit--focused");
   }
 
-  function addError(fieldName){
+  function addError(fieldName) {
     let input = document.getElementById(fieldName + '-input');
     let calculatorUnit = input.querySelector('.calculator__unit');
-    let message = document.getElementById(fieldName + '-error');
+    showErrorMessage(fieldName);
 
     input.classList.add("calculator__input--error");
     calculatorUnit.classList.add("calculator__unit--error");
-    message.classList.add("error--visible");
   }
 
-  function removeError(fieldName){
+  function removeError(fieldName) {
     let input = document.getElementById(fieldName + '-input');
     let calculatorUnit = input.querySelector('.calculator__unit');
-    let message = document.getElementById(fieldName + '-error');
+    hideErrorMessage(fieldName)
 
     input.classList.remove("calculator__input--error");
     calculatorUnit.classList.remove("calculator__unit--error");
+  }
+
+  function showErrorMessage(fieldName) {
+    let message = document.getElementById(fieldName + '-error');
+    message.classList.add("error--visible");
+  }
+
+  function hideErrorMessage(fieldName) {
+    let message = document.getElementById(fieldName + '-error');
     message.classList.remove("error--visible");
   }
 
@@ -171,23 +180,8 @@
     const interestRate = document.getElementById('interest-rate');
     const mortageType = document.querySelector('input[name="mortage-type"]:checked');
 
-    if(!mortageAmount.value || mortageAmount.value == 0){
-      addError('mortage-amount');
-      return false;
-    }
-    else removeError('mortage-amount');
+    if (!validateForm(mortageAmount, mortageTerm, interestRate, mortageType)) return false;
 
-    if(!mortageAmount.value || mortageAmount.value == 0){
-      addError('mortage-term');
-      return false;
-    }
-    else removeError('mortage-term');
-
-    if(!mortageAmount.value || mortageAmount.value == 0){
-      addError('interest-rate');
-      return false;
-    }
-    else removeError('interest-rate');
 
     let p = mortageAmount.value;
     let r = interestRate.value / 100;
@@ -201,21 +195,48 @@
       result = (p * (r / n));
       totalResult = result * t;
     } else {
-
-
       let fistStep = p * (r / n);
       let secondStep = (1 - (1 + (r / n)) ** -t);
       result = (fistStep / secondStep);
       totalResult = result * t;
-
     }
 
     document.getElementById("results__empty").classList.add('results__empty--hidden');
     document.getElementById("results__filled").classList.remove('results__filled--hidden')
 
-    document.getElementById("monthly-repayment").innerHTML = `£${result}`;
-    document.getElementById("total-repay").innerHTML = `£${totalResult}`;
+    document.getElementById("monthly-repayment").innerHTML = `£${result.toFixed(2)}`;
+    document.getElementById("total-repay").innerHTML = `£${totalResult.toFixed(2)}`;
   }
+
+  function validateForm(mortageAmount, mortageTerm, interestRate, mortageType) {
+    var valid = true;
+    if (!mortageAmount.value || mortageAmount.value == 0) {
+      addError('mortage-amount');
+      valid = false;
+    }
+    else removeError('mortage-amount');
+
+    if (!mortageTerm.value || mortageTerm.value == 0) {
+      addError('mortage-term');
+      valid = false;
+    }
+    else removeError('mortage-term');
+
+    if (!interestRate.value || interestRate.value == 0) {
+      addError('interest-rate');
+      valid = false;
+    }
+    else removeError('interest-rate');
+
+    if (!mortageType) {
+      showErrorMessage('mortage-type');
+      valid = false;
+    }
+    else hideErrorMessage('mortage-type');
+
+    return valid;
+  }
+
 </script>
 
 </html>

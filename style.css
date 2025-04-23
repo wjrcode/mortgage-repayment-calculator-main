@@ -243,6 +243,7 @@ input[type="radio"]:checked {
 
 .error{
     color: var(--red);
+    margin-top: 0.7rem;
     display: none;
 }
 
